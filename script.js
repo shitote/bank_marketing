@@ -10,6 +10,7 @@ const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section11 = document.querySelector("#section--1");
+const navLinks = document.querySelectorAll(".nav__link");
 
 const openModal = function (e) {
   e.preventDefault();
@@ -37,26 +38,11 @@ btnScrollTo.addEventListener("click", function () {
   section11.scrollIntoView({ behavior: "smooth" });
 });
 
-///////////////////////////////////////
-// more on the dom
-
-const header = document.querySelector(".header");
-
-const message = document.createElement("div");
-message.classList.add("cookie-message");
-
-message.innerHTML =
-  "This site used cookies for imroved security, <button class='btn btn--close-cookie'>Got it</button>";
-
-header.apend(message);
-
-document
-  .querySelector(".btn--close-cookie")
-  .addEventListener("click", function () {
-    message.remove();
-  });
-
-///////////////////////////////////////
-// styles
-message.style.backgroundColor = "#37383d";
-message.style.width = "120%";
+// Page navigation
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains("nav__link")) {
+    const id = e.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
