@@ -18,6 +18,7 @@ const tabsContent = document.querySelectorAll(".operations__content");
 const allSections = document.querySelectorAll(".section");
 
 const header = document.querySelector(".header");
+const imgTarget = document.querySelectorAll("img[data-src]");
 
 const nav = document.querySelector(".nav");
 
@@ -125,3 +126,26 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
 });
+
+// Lay loading
+
+const loading = function (entries, observe) {
+  const [entry] = entries;
+
+  if (entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+  observer.unobserve(entry.target);
+};
+
+const imageObserver = new IntersectionObserver(loading, {
+  root: null,
+  threshold: 0,
+  rootMargin: "200px",
+});
+
+imgTarget.forEach((img) => imageObserver.observe(img));
